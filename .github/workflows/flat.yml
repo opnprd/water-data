@@ -1,7 +1,5 @@
 name: data
 on:
-  # schedule:
-  #   - cron: 0 0 * * *
   workflow_dispatch: {}
   push:
     paths:
@@ -26,3 +24,8 @@ jobs:
         with:
           http_url: https://datamillnorth.org/download/environmental-performance-summary-assessment/377b16fa-70f5-4b29-a49e-352bc67412c4/2016-2019%20EPA%20Summary%20datasets.geojson
           downloaded_filename: environmental-performance-summary-assessment.geojson
+      - name: Fetch data
+        uses: githubocto/flat@v3
+        with:
+          http_url: https://environment.data.gov.uk/UserDownloads/interactive/70950efe73334133b48b4bb85d409d3930660/EA_StatutoryMainRiverMap_GeoJSON_Full.zip
+          downloaded_filename: rivers.zip
