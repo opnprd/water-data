@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - .github/workflows/flat.yml
+      - ./process/rivers.ts
 jobs:
   scheduled:
     runs-on: ubuntu-latest
@@ -29,3 +30,4 @@ jobs:
         with:
           http_url: https://environment.data.gov.uk/UserDownloads/interactive/70950efe73334133b48b4bb85d409d3930660/EA_StatutoryMainRiverMap_GeoJSON_Full.zip
           downloaded_filename: rivers.zip
+          postprocess: ./process/rivers.ts
