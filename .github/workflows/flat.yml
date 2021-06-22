@@ -1,0 +1,28 @@
+name: data
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch: {}
+  push:
+    paths:
+      - .github/workflows/flat.yml
+jobs:
+  scheduled:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup deno
+        uses: denoland/setup-deno@main
+        with:
+          deno-version: v1.x
+      - name: Check out repo
+        uses: actions/checkout@v2
+      - name: Fetch data
+        uses: githubocto/flat@v3
+        with:
+          http_url: https://datamillnorth.org/download/yorkshire-water-pollution-incidents/3ae0a5a6-1b35-4fe2-b396-34917cd905b6/yorkshire-water-pollution-incidents.geojson
+          downloaded_filename: pollution-incidents.geojson
+      - name: Fetch data
+        uses: githubocto/flat@v3
+        with:
+          http_url: https://datamillnorth.org/download/environmental-performance-summary-assessment/377b16fa-70f5-4b29-a49e-352bc67412c4/2016-2019%20EPA%20Summary%20datasets.geojson
+          downloaded_filename: environmental-performance-summary-assessment.geojson
