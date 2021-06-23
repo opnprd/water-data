@@ -37,6 +37,11 @@
         <script src="data/wharfeepsa_3.js"></script>
         <script src="data/wharfepollutionincidents_4.js"></script>
         <script>
+        var highlightLayer;
+        function highlightFeature(e) {
+            highlightLayer = e.target;
+            highlightLayer.openPopup();
+        }
         var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:1
         })
@@ -48,6 +53,7 @@
             if (bounds_group.getLayers().length) {
                 map.fitBounds(bounds_group.getBounds());
             }
+            map.setMaxBounds(map.getBounds());
         }
         map.createPane('pane_EsriTopoWorld_0');
         map.getPane('pane_EsriTopoWorld_0').style.zIndex = 400;
@@ -63,6 +69,18 @@
         layer_EsriTopoWorld_0;
         map.addLayer(layer_EsriTopoWorld_0);
         function pop_the_wharfe_zone_1(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['OBJECTID'] !== null ? autolinker.link(feature.properties['OBJECTID'].toLocaleString()) : '') + '</td>\
@@ -95,7 +113,7 @@
                 stroke: false,
                 fillOpacity: 1,
                 fillPattern: pattern_the_wharfe_zone_1_0,
-                interactive: true,
+                interactive: false,
             }
         }
         function style_the_wharfe_zone_1_1() {
@@ -108,7 +126,7 @@
                 lineJoin: 'bevel',
                 weight: 2.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
         }
         map.createPane('pane_the_wharfe_zone_1');
@@ -116,7 +134,7 @@
         map.getPane('pane_the_wharfe_zone_1').style['mix-blend-mode'] = 'normal';
         var layer_the_wharfe_zone_1 = new L.geoJson.multiStyle(json_the_wharfe_zone_1, {
             attribution: '',
-            interactive: true,
+            interactive: false,
             dataVar: 'json_the_wharfe_zone_1',
             layerName: 'layer_the_wharfe_zone_1',
             pane: 'pane_the_wharfe_zone_1',
@@ -126,18 +144,34 @@
         bounds_group.addLayer(layer_the_wharfe_zone_1);
         map.addLayer(layer_the_wharfe_zone_1);
         function pop_the_river_wharfe_2(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
             var popupContent = '<table>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['OBJECTID'] !== null ? autolinker.link(feature.properties['OBJECTID'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">OBJECTID</th>\
+                        <td>' + (feature.properties['OBJECTID'] !== null ? autolinker.link(feature.properties['OBJECTID'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['status'] !== null ? autolinker.link(feature.properties['status'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">status</th>\
+                        <td>' + (feature.properties['status'] !== null ? autolinker.link(feature.properties['status'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['length_km'] !== null ? autolinker.link(feature.properties['length_km'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">length_km</th>\
+                        <td>' + (feature.properties['length_km'] !== null ? autolinker.link(feature.properties['length_km'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['Shape_Length'] !== null ? autolinker.link(feature.properties['Shape_Length'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Shape_Length</th>\
+                        <td>' + (feature.properties['Shape_Length'] !== null ? autolinker.link(feature.properties['Shape_Length'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
@@ -153,7 +187,7 @@
                 lineJoin: 'round',
                 weight: 3.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
         }
         map.createPane('pane_the_river_wharfe_2');
@@ -161,7 +195,7 @@
         map.getPane('pane_the_river_wharfe_2').style['mix-blend-mode'] = 'normal';
         var layer_the_river_wharfe_2 = new L.geoJson(json_the_river_wharfe_2, {
             attribution: '',
-            interactive: true,
+            interactive: false,
             dataVar: 'json_the_river_wharfe_2',
             layerName: 'layer_the_river_wharfe_2',
             pane: 'pane_the_river_wharfe_2',
@@ -171,45 +205,70 @@
         bounds_group.addLayer(layer_the_river_wharfe_2);
         map.addLayer(layer_the_river_wharfe_2);
         function pop_wharfeepsa_3(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
             var popupContent = '<table>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['EA Ref'] !== null ? autolinker.link(feature.properties['EA Ref'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">EA Ref</th>\
+                        <td>' + (feature.properties['EA Ref'] !== null ? autolinker.link(feature.properties['EA Ref'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['Date and Time To YW'] !== null ? autolinker.link(feature.properties['Date and Time To YW'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Date and Time To YW</th>\
+                        <td>' + (feature.properties['Date and Time To YW'] !== null ? autolinker.link(feature.properties['Date and Time To YW'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['YW Category'] !== null ? autolinker.link(feature.properties['YW Category'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">YW Category</th>\
+                        <td>' + (feature.properties['YW Category'] !== null ? autolinker.link(feature.properties['YW Category'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['Asset Type / Description'] !== null ? autolinker.link(feature.properties['Asset Type / Description'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Asset Type / Description</th>\
+                        <td>' + (feature.properties['Asset Type / Description'] !== null ? autolinker.link(feature.properties['Asset Type / Description'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['Associated asset'] !== null ? autolinker.link(feature.properties['Associated asset'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Associated asset</th>\
+                        <td>' + (feature.properties['Associated asset'] !== null ? autolinker.link(feature.properties['Associated asset'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['Cause of Discharge'] !== null ? autolinker.link(feature.properties['Cause of Discharge'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Cause of Discharge</th>\
+                        <td>' + (feature.properties['Cause of Discharge'] !== null ? autolinker.link(feature.properties['Cause of Discharge'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['District'] !== null ? autolinker.link(feature.properties['District'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">District</th>\
+                        <td>' + (feature.properties['District'] !== null ? autolinker.link(feature.properties['District'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['Self Reported ?'] !== null ? autolinker.link(feature.properties['Self Reported ?'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Self Reported ?</th>\
+                        <td>' + (feature.properties['Self Reported ?'] !== null ? autolinker.link(feature.properties['Self Reported ?'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['Grid Ref'] !== null ? autolinker.link(feature.properties['Grid Ref'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Grid Ref</th>\
+                        <td>' + (feature.properties['Grid Ref'] !== null ? autolinker.link(feature.properties['Grid Ref'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['latitude'] !== null ? autolinker.link(feature.properties['latitude'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">latitude</th>\
+                        <td>' + (feature.properties['latitude'] !== null ? autolinker.link(feature.properties['latitude'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['longitude'] !== null ? autolinker.link(feature.properties['longitude'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">longitude</th>\
+                        <td>' + (feature.properties['longitude'] !== null ? autolinker.link(feature.properties['longitude'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['Under investigation'] !== null ? autolinker.link(feature.properties['Under investigation'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Under investigation</th>\
+                        <td>' + (feature.properties['Under investigation'] !== null ? autolinker.link(feature.properties['Under investigation'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['EPA Category'] !== null ? autolinker.link(feature.properties['EPA Category'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">EPA Category</th>\
+                        <td>' + (feature.properties['EPA Category'] !== null ? autolinker.link(feature.properties['EPA Category'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
@@ -252,30 +311,50 @@
         bounds_group.addLayer(layer_wharfeepsa_3);
         map.addLayer(layer_wharfeepsa_3);
         function pop_wharfepollutionincidents_4(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
             var popupContent = '<table>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['NIRS (National incident recording system) Ref'] !== null ? autolinker.link(feature.properties['NIRS (National incident recording system) Ref'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">NIRS (National incident recording system) Ref</th>\
+                        <td>' + (feature.properties['NIRS (National incident recording system) Ref'] !== null ? autolinker.link(feature.properties['NIRS (National incident recording system) Ref'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['Date'] !== null ? autolinker.link(feature.properties['Date'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Date</th>\
+                        <td>' + (feature.properties['Date'] !== null ? autolinker.link(feature.properties['Date'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['Incident Category'] !== null ? autolinker.link(feature.properties['Incident Category'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Incident Category</th>\
+                        <td>' + (feature.properties['Incident Category'] !== null ? autolinker.link(feature.properties['Incident Category'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['Asset Type'] !== null ? autolinker.link(feature.properties['Asset Type'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Asset Type</th>\
+                        <td>' + (feature.properties['Asset Type'] !== null ? autolinker.link(feature.properties['Asset Type'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['Associated asset'] !== null ? autolinker.link(feature.properties['Associated asset'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Associated asset</th>\
+                        <td>' + (feature.properties['Associated asset'] !== null ? autolinker.link(feature.properties['Associated asset'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['Cause'] !== null ? autolinker.link(feature.properties['Cause'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Cause</th>\
+                        <td>' + (feature.properties['Cause'] !== null ? autolinker.link(feature.properties['Cause'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['Location'] !== null ? autolinker.link(feature.properties['Location'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Location</th>\
+                        <td>' + (feature.properties['Location'] !== null ? autolinker.link(feature.properties['Location'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['Grid Ref'] !== null ? autolinker.link(feature.properties['Grid Ref'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Grid Ref</th>\
+                        <td>' + (feature.properties['Grid Ref'] !== null ? autolinker.link(feature.properties['Grid Ref'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
