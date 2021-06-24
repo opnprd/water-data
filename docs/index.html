@@ -24,7 +24,6 @@
         <script src="js/qgis2web_expressions.js"></script>
         <script src="js/leaflet.js"></script>
         <script src="js/multi-style-layer.js"></script>
-        <script src="js/leaflet-svg-shape-markers.min.js"></script>
         <script src="js/leaflet.rotatedMarker.js"></script>
         <script src="js/leaflet.pattern.js"></script>
         <script src="js/leaflet-hash.js"></script>
@@ -32,10 +31,11 @@
         <script src="js/rbush.min.js"></script>
         <script src="js/labelgun.min.js"></script>
         <script src="js/labels.js"></script>
-        <script src="data/the_wharfe_zone_1.js"></script>
-        <script src="data/the_river_wharfe_2.js"></script>
-        <script src="data/wharfeepsa_3.js"></script>
-        <script src="data/wharfepollutionincidents_4.js"></script>
+        <script src="data/catchmentwatercourses_1.js"></script>
+        <script src="data/catchmentarea_2.js"></script>
+        <script src="data/riverwharfe_3.js"></script>
+        <script src="data/pollutionincidents_4.js"></script>
+        <script src="data/epsa_5.js"></script>
         <script>
         var highlightLayer;
         function highlightFeature(e) {
@@ -68,7 +68,140 @@
         });
         layer_EsriTopoWorld_0;
         map.addLayer(layer_EsriTopoWorld_0);
-        function pop_the_wharfe_zone_1(feature, layer) {
+        function pop_catchmentwatercourses_1(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id'] !== null ? autolinker.link(feature.properties['id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['name'] !== null ? autolinker.link(feature.properties['name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['uri'] !== null ? autolinker.link(feature.properties['uri'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['water-body-type'] !== null ? autolinker.link(feature.properties['water-body-type'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['geometry-type'] !== null ? autolinker.link(feature.properties['geometry-type'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_catchmentwatercourses_1_0() {
+            return {
+                pane: 'pane_catchmentwatercourses_1',
+                opacity: 1,
+                color: 'rgba(100,152,210,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 3.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_catchmentwatercourses_1');
+        map.getPane('pane_catchmentwatercourses_1').style.zIndex = 401;
+        map.getPane('pane_catchmentwatercourses_1').style['mix-blend-mode'] = 'normal';
+        var layer_catchmentwatercourses_1 = new L.geoJson(json_catchmentwatercourses_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_catchmentwatercourses_1',
+            layerName: 'layer_catchmentwatercourses_1',
+            pane: 'pane_catchmentwatercourses_1',
+            onEachFeature: pop_catchmentwatercourses_1,
+            style: style_catchmentwatercourses_1_0,
+        });
+        bounds_group.addLayer(layer_catchmentwatercourses_1);
+        map.addLayer(layer_catchmentwatercourses_1);
+        function pop_catchmentarea_2(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id'] !== null ? autolinker.link(feature.properties['id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['name'] !== null ? autolinker.link(feature.properties['name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['uri'] !== null ? autolinker.link(feature.properties['uri'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['water-body-type'] !== null ? autolinker.link(feature.properties['water-body-type'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['geometry-type'] !== null ? autolinker.link(feature.properties['geometry-type'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        var pattern_catchmentarea_2_0 = new L.StripePattern({
+            weight: 0.3,
+            spaceWeight: 2.0,
+            color: '#377eb8',
+            opacity: 1.0,
+            spaceOpacity: 0,
+            angle: 315
+        });
+        pattern_catchmentarea_2_0.addTo(map);
+        function style_catchmentarea_2_0() {
+            return {
+                pane: 'pane_catchmentarea_2',
+                stroke: false,
+                fillOpacity: 1,
+                fillPattern: pattern_catchmentarea_2_0,
+                interactive: true,
+            }
+        }
+        function style_catchmentarea_2_1() {
+            return {
+                pane: 'pane_catchmentarea_2',
+                stroke: false,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_catchmentarea_2');
+        map.getPane('pane_catchmentarea_2').style.zIndex = 402;
+        map.getPane('pane_catchmentarea_2').style['mix-blend-mode'] = 'normal';
+        var layer_catchmentarea_2 = new L.geoJson.multiStyle(json_catchmentarea_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_catchmentarea_2',
+            layerName: 'layer_catchmentarea_2',
+            pane: 'pane_catchmentarea_2',
+            onEachFeature: pop_catchmentarea_2,
+            styles: [style_catchmentarea_2_0,style_catchmentarea_2_1,]
+        });
+        bounds_group.addLayer(layer_catchmentarea_2);
+        map.addLayer(layer_catchmentarea_2);
+        function pop_riverwharfe_3(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     if (typeof layer.closePopup == 'function') {
@@ -98,52 +231,34 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        var pattern_the_wharfe_zone_1_0 = new L.StripePattern({
-            weight: 0.3,
-            spaceWeight: 2.0,
-            color: '#377eb8',
-            opacity: 1.0,
-            spaceOpacity: 0,
-            angle: 315
-        });
-        pattern_the_wharfe_zone_1_0.addTo(map);
-        function style_the_wharfe_zone_1_0() {
+        function style_riverwharfe_3_0() {
             return {
-                pane: 'pane_the_wharfe_zone_1',
-                stroke: false,
-                fillOpacity: 1,
-                fillPattern: pattern_the_wharfe_zone_1_0,
-                interactive: false,
-            }
-        }
-        function style_the_wharfe_zone_1_1() {
-            return {
-                pane: 'pane_the_wharfe_zone_1',
+                pane: 'pane_riverwharfe_3',
                 opacity: 1,
-                color: 'rgba(55,126,184,1.0)',
+                color: 'rgba(100,152,210,1.0)',
                 dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 2.0,
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 5.0,
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
         }
-        map.createPane('pane_the_wharfe_zone_1');
-        map.getPane('pane_the_wharfe_zone_1').style.zIndex = 401;
-        map.getPane('pane_the_wharfe_zone_1').style['mix-blend-mode'] = 'normal';
-        var layer_the_wharfe_zone_1 = new L.geoJson.multiStyle(json_the_wharfe_zone_1, {
+        map.createPane('pane_riverwharfe_3');
+        map.getPane('pane_riverwharfe_3').style.zIndex = 403;
+        map.getPane('pane_riverwharfe_3').style['mix-blend-mode'] = 'normal';
+        var layer_riverwharfe_3 = new L.geoJson(json_riverwharfe_3, {
             attribution: '',
-            interactive: false,
-            dataVar: 'json_the_wharfe_zone_1',
-            layerName: 'layer_the_wharfe_zone_1',
-            pane: 'pane_the_wharfe_zone_1',
-            onEachFeature: pop_the_wharfe_zone_1,
-            styles: [style_the_wharfe_zone_1_0,style_the_wharfe_zone_1_1,]
+            interactive: true,
+            dataVar: 'json_riverwharfe_3',
+            layerName: 'layer_riverwharfe_3',
+            pane: 'pane_riverwharfe_3',
+            onEachFeature: pop_riverwharfe_3,
+            style: style_riverwharfe_3_0,
         });
-        bounds_group.addLayer(layer_the_wharfe_zone_1);
-        map.addLayer(layer_the_wharfe_zone_1);
-        function pop_the_river_wharfe_2(feature, layer) {
+        bounds_group.addLayer(layer_riverwharfe_3);
+        map.addLayer(layer_riverwharfe_3);
+        function pop_pollutionincidents_4(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     if (typeof layer.closePopup == 'function') {
@@ -158,53 +273,78 @@
             });
             var popupContent = '<table>\
                     <tr>\
-                        <th scope="row">OBJECTID</th>\
-                        <td>' + (feature.properties['OBJECTID'] !== null ? autolinker.link(feature.properties['OBJECTID'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">NIRS (National incident recording system) Ref</th>\
+                        <td>' + (feature.properties['NIRS (National incident recording system) Ref'] !== null ? autolinker.link(feature.properties['NIRS (National incident recording system) Ref'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">status</th>\
-                        <td>' + (feature.properties['status'] !== null ? autolinker.link(feature.properties['status'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Date</th>\
+                        <td>' + (feature.properties['Date'] !== null ? autolinker.link(feature.properties['Date'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">length_km</th>\
-                        <td>' + (feature.properties['length_km'] !== null ? autolinker.link(feature.properties['length_km'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Incident Category</th>\
+                        <td>' + (feature.properties['Incident Category'] !== null ? autolinker.link(feature.properties['Incident Category'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Shape_Length</th>\
-                        <td>' + (feature.properties['Shape_Length'] !== null ? autolinker.link(feature.properties['Shape_Length'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Asset Type</th>\
+                        <td>' + (feature.properties['Asset Type'] !== null ? autolinker.link(feature.properties['Asset Type'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Associated asset</th>\
+                        <td>' + (feature.properties['Associated asset'] !== null ? autolinker.link(feature.properties['Associated asset'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Cause</th>\
+                        <td>' + (feature.properties['Cause'] !== null ? autolinker.link(feature.properties['Cause'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Location</th>\
+                        <td>' + (feature.properties['Location'] !== null ? autolinker.link(feature.properties['Location'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Grid Ref</th>\
+                        <td>' + (feature.properties['Grid Ref'] !== null ? autolinker.link(feature.properties['Grid Ref'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_the_river_wharfe_2_0() {
+        function style_pollutionincidents_4_0() {
             return {
-                pane: 'pane_the_river_wharfe_2',
+                pane: 'pane_pollutionincidents_4',
+                radius: 8.0,
                 opacity: 1,
-                color: 'rgba(100,152,210,1.0)',
+                color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
-                lineCap: 'round',
-                lineJoin: 'round',
-                weight: 3.0,
-                fillOpacity: 0,
-                interactive: false,
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(229,182,54,1.0)',
+                interactive: true,
             }
         }
-        map.createPane('pane_the_river_wharfe_2');
-        map.getPane('pane_the_river_wharfe_2').style.zIndex = 402;
-        map.getPane('pane_the_river_wharfe_2').style['mix-blend-mode'] = 'normal';
-        var layer_the_river_wharfe_2 = new L.geoJson(json_the_river_wharfe_2, {
+        map.createPane('pane_pollutionincidents_4');
+        map.getPane('pane_pollutionincidents_4').style.zIndex = 404;
+        map.getPane('pane_pollutionincidents_4').style['mix-blend-mode'] = 'normal';
+        var layer_pollutionincidents_4 = new L.geoJson(json_pollutionincidents_4, {
             attribution: '',
-            interactive: false,
-            dataVar: 'json_the_river_wharfe_2',
-            layerName: 'layer_the_river_wharfe_2',
-            pane: 'pane_the_river_wharfe_2',
-            onEachFeature: pop_the_river_wharfe_2,
-            style: style_the_river_wharfe_2_0,
+            interactive: true,
+            dataVar: 'json_pollutionincidents_4',
+            layerName: 'layer_pollutionincidents_4',
+            pane: 'pane_pollutionincidents_4',
+            onEachFeature: pop_pollutionincidents_4,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_pollutionincidents_4_0(feature));
+            },
         });
-        bounds_group.addLayer(layer_the_river_wharfe_2);
-        map.addLayer(layer_the_river_wharfe_2);
-        function pop_wharfeepsa_3(feature, layer) {
+        bounds_group.addLayer(layer_pollutionincidents_4);
+        map.addLayer(layer_pollutionincidents_4);
+        function pop_epsa_5(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     if (typeof layer.closePopup == 'function') {
@@ -274,129 +414,44 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_wharfeepsa_3_0() {
+        function style_epsa_5_0() {
             return {
-                pane: 'pane_wharfeepsa_3',
+                pane: 'pane_epsa_5',
                 radius: 8.0,
                 opacity: 1,
-                color: 'rgba(179,92,21,1.0)',
+                color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
-                weight: 2.0,
+                weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(247,128,30,1.0)',
+                fillColor: 'rgba(225,89,137,1.0)',
                 interactive: true,
             }
         }
-        map.createPane('pane_wharfeepsa_3');
-        map.getPane('pane_wharfeepsa_3').style.zIndex = 403;
-        map.getPane('pane_wharfeepsa_3').style['mix-blend-mode'] = 'normal';
-        var layer_wharfeepsa_3 = new L.geoJson(json_wharfeepsa_3, {
+        map.createPane('pane_epsa_5');
+        map.getPane('pane_epsa_5').style.zIndex = 405;
+        map.getPane('pane_epsa_5').style['mix-blend-mode'] = 'normal';
+        var layer_epsa_5 = new L.geoJson(json_epsa_5, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_wharfeepsa_3',
-            layerName: 'layer_wharfeepsa_3',
-            pane: 'pane_wharfeepsa_3',
-            onEachFeature: pop_wharfeepsa_3,
+            dataVar: 'json_epsa_5',
+            layerName: 'layer_epsa_5',
+            pane: 'pane_epsa_5',
+            onEachFeature: pop_epsa_5,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_wharfeepsa_3_0(feature));
+                return L.circleMarker(latlng, style_epsa_5_0(feature));
             },
         });
-        bounds_group.addLayer(layer_wharfeepsa_3);
-        map.addLayer(layer_wharfeepsa_3);
-        function pop_wharfepollutionincidents_4(feature, layer) {
-            layer.on({
-                mouseout: function(e) {
-                    if (typeof layer.closePopup == 'function') {
-                        layer.closePopup();
-                    } else {
-                        layer.eachLayer(function(feature){
-                            feature.closePopup()
-                        });
-                    }
-                },
-                mouseover: highlightFeature,
-            });
-            var popupContent = '<table>\
-                    <tr>\
-                        <th scope="row">NIRS (National incident recording system) Ref</th>\
-                        <td>' + (feature.properties['NIRS (National incident recording system) Ref'] !== null ? autolinker.link(feature.properties['NIRS (National incident recording system) Ref'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Date</th>\
-                        <td>' + (feature.properties['Date'] !== null ? autolinker.link(feature.properties['Date'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Incident Category</th>\
-                        <td>' + (feature.properties['Incident Category'] !== null ? autolinker.link(feature.properties['Incident Category'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Asset Type</th>\
-                        <td>' + (feature.properties['Asset Type'] !== null ? autolinker.link(feature.properties['Asset Type'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Associated asset</th>\
-                        <td>' + (feature.properties['Associated asset'] !== null ? autolinker.link(feature.properties['Associated asset'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Cause</th>\
-                        <td>' + (feature.properties['Cause'] !== null ? autolinker.link(feature.properties['Cause'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Location</th>\
-                        <td>' + (feature.properties['Location'] !== null ? autolinker.link(feature.properties['Location'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Grid Ref</th>\
-                        <td>' + (feature.properties['Grid Ref'] !== null ? autolinker.link(feature.properties['Grid Ref'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-        }
-
-        function style_wharfepollutionincidents_4_0() {
-            return {
-                pane: 'pane_wharfepollutionincidents_4',
-                shape: 'diamond',
-                radius: 8.8,
-                opacity: 1,
-                color: 'rgba(128,17,25,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 2.0,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(219,30,42,1.0)',
-                interactive: true,
-            }
-        }
-        map.createPane('pane_wharfepollutionincidents_4');
-        map.getPane('pane_wharfepollutionincidents_4').style.zIndex = 404;
-        map.getPane('pane_wharfepollutionincidents_4').style['mix-blend-mode'] = 'normal';
-        var layer_wharfepollutionincidents_4 = new L.geoJson(json_wharfepollutionincidents_4, {
-            attribution: '',
-            interactive: true,
-            dataVar: 'json_wharfepollutionincidents_4',
-            layerName: 'layer_wharfepollutionincidents_4',
-            pane: 'pane_wharfepollutionincidents_4',
-            onEachFeature: pop_wharfepollutionincidents_4,
-            pointToLayer: function (feature, latlng) {
-                var context = {
-                    feature: feature,
-                    variables: {}
-                };
-                return L.shapeMarker(latlng, style_wharfepollutionincidents_4_0(feature));
-            },
-        });
-        bounds_group.addLayer(layer_wharfepollutionincidents_4);
-        map.addLayer(layer_wharfepollutionincidents_4);
+        bounds_group.addLayer(layer_epsa_5);
+        map.addLayer(layer_epsa_5);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/epsa_5.png" /> epsa': layer_epsa_5,'<img src="legend/pollutionincidents_4.png" /> pollution-incidents': layer_pollutionincidents_4,'<img src="legend/riverwharfe_3.png" /> river-wharfe': layer_riverwharfe_3,'<img src="legend/catchmentarea_2.png" /> catchment area': layer_catchmentarea_2,'<img src="legend/catchmentwatercourses_1.png" /> catchment watercourses': layer_catchmentwatercourses_1,"Esri Topo World": layer_EsriTopoWorld_0,},{collapsed:false}).addTo(map);
         setBounds();
         </script>
     </body>
