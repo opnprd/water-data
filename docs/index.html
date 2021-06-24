@@ -32,9 +32,9 @@
         <script src="js/labelgun.min.js"></script>
         <script src="js/labels.js"></script>
         <script src="data/CatchmentBodies_1.js"></script>
-        <script src="data/CatchmentArea_2.js"></script>
-        <script src="data/RiverWharfe_3.js"></script>
-        <script src="data/PollutionIncidents_4.js"></script>
+        <script src="data/CatchmentBoundaries_2.js"></script>
+        <script src="data/Wharfe_3.js"></script>
+        <script src="data/PollutionIncidentsYW_4.js"></script>
         <script src="data/EnvironmentalPerformanceSummaryAssessment_5.js"></script>
         <script>
         var highlightLayer;
@@ -53,7 +53,6 @@
             if (bounds_group.getLayers().length) {
                 map.fitBounds(bounds_group.getBounds());
             }
-            map.setMaxBounds(map.getBounds());
         }
         map.createPane('pane_EsriTopoWorld_0');
         map.getPane('pane_EsriTopoWorld_0').style.zIndex = 400;
@@ -111,7 +110,7 @@
                 lineJoin: 'round',
                 weight: 3.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
         }
         map.createPane('pane_CatchmentBodies_1');
@@ -119,7 +118,7 @@
         map.getPane('pane_CatchmentBodies_1').style['mix-blend-mode'] = 'normal';
         var layer_CatchmentBodies_1 = new L.geoJson(json_CatchmentBodies_1, {
             attribution: '',
-            interactive: true,
+            interactive: false,
             dataVar: 'json_CatchmentBodies_1',
             layerName: 'layer_CatchmentBodies_1',
             pane: 'pane_CatchmentBodies_1',
@@ -128,7 +127,7 @@
         });
         bounds_group.addLayer(layer_CatchmentBodies_1);
         map.addLayer(layer_CatchmentBodies_1);
-        function pop_CatchmentArea_2(feature, layer) {
+        function pop_CatchmentBoundaries_2(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     if (typeof layer.closePopup == 'function') {
@@ -161,7 +160,7 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        var pattern_CatchmentArea_2_0 = new L.StripePattern({
+        var pattern_CatchmentBoundaries_2_0 = new L.StripePattern({
             weight: 0.3,
             spaceWeight: 2.0,
             color: '#377eb8',
@@ -169,39 +168,39 @@
             spaceOpacity: 0,
             angle: 315
         });
-        pattern_CatchmentArea_2_0.addTo(map);
-        function style_CatchmentArea_2_0() {
+        pattern_CatchmentBoundaries_2_0.addTo(map);
+        function style_CatchmentBoundaries_2_0() {
             return {
-                pane: 'pane_CatchmentArea_2',
+                pane: 'pane_CatchmentBoundaries_2',
                 stroke: false,
                 fillOpacity: 1,
-                fillPattern: pattern_CatchmentArea_2_0,
-                interactive: true,
+                fillPattern: pattern_CatchmentBoundaries_2_0,
+                interactive: false,
             }
         }
-        function style_CatchmentArea_2_1() {
+        function style_CatchmentBoundaries_2_1() {
             return {
-                pane: 'pane_CatchmentArea_2',
+                pane: 'pane_CatchmentBoundaries_2',
                 stroke: false,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
         }
-        map.createPane('pane_CatchmentArea_2');
-        map.getPane('pane_CatchmentArea_2').style.zIndex = 402;
-        map.getPane('pane_CatchmentArea_2').style['mix-blend-mode'] = 'normal';
-        var layer_CatchmentArea_2 = new L.geoJson.multiStyle(json_CatchmentArea_2, {
+        map.createPane('pane_CatchmentBoundaries_2');
+        map.getPane('pane_CatchmentBoundaries_2').style.zIndex = 402;
+        map.getPane('pane_CatchmentBoundaries_2').style['mix-blend-mode'] = 'normal';
+        var layer_CatchmentBoundaries_2 = new L.geoJson.multiStyle(json_CatchmentBoundaries_2, {
             attribution: '',
-            interactive: true,
-            dataVar: 'json_CatchmentArea_2',
-            layerName: 'layer_CatchmentArea_2',
-            pane: 'pane_CatchmentArea_2',
-            onEachFeature: pop_CatchmentArea_2,
-            styles: [style_CatchmentArea_2_0,style_CatchmentArea_2_1,]
+            interactive: false,
+            dataVar: 'json_CatchmentBoundaries_2',
+            layerName: 'layer_CatchmentBoundaries_2',
+            pane: 'pane_CatchmentBoundaries_2',
+            onEachFeature: pop_CatchmentBoundaries_2,
+            styles: [style_CatchmentBoundaries_2_0,style_CatchmentBoundaries_2_1,]
         });
-        bounds_group.addLayer(layer_CatchmentArea_2);
-        map.addLayer(layer_CatchmentArea_2);
-        function pop_RiverWharfe_3(feature, layer) {
+        bounds_group.addLayer(layer_CatchmentBoundaries_2);
+        map.addLayer(layer_CatchmentBoundaries_2);
+        function pop_Wharfe_3(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     if (typeof layer.closePopup == 'function') {
@@ -231,9 +230,9 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_RiverWharfe_3_0() {
+        function style_Wharfe_3_0() {
             return {
-                pane: 'pane_RiverWharfe_3',
+                pane: 'pane_Wharfe_3',
                 opacity: 1,
                 color: 'rgba(100,152,210,1.0)',
                 dashArray: '',
@@ -241,24 +240,24 @@
                 lineJoin: 'round',
                 weight: 5.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
         }
-        map.createPane('pane_RiverWharfe_3');
-        map.getPane('pane_RiverWharfe_3').style.zIndex = 403;
-        map.getPane('pane_RiverWharfe_3').style['mix-blend-mode'] = 'normal';
-        var layer_RiverWharfe_3 = new L.geoJson(json_RiverWharfe_3, {
+        map.createPane('pane_Wharfe_3');
+        map.getPane('pane_Wharfe_3').style.zIndex = 403;
+        map.getPane('pane_Wharfe_3').style['mix-blend-mode'] = 'normal';
+        var layer_Wharfe_3 = new L.geoJson(json_Wharfe_3, {
             attribution: '',
-            interactive: true,
-            dataVar: 'json_RiverWharfe_3',
-            layerName: 'layer_RiverWharfe_3',
-            pane: 'pane_RiverWharfe_3',
-            onEachFeature: pop_RiverWharfe_3,
-            style: style_RiverWharfe_3_0,
+            interactive: false,
+            dataVar: 'json_Wharfe_3',
+            layerName: 'layer_Wharfe_3',
+            pane: 'pane_Wharfe_3',
+            onEachFeature: pop_Wharfe_3,
+            style: style_Wharfe_3_0,
         });
-        bounds_group.addLayer(layer_RiverWharfe_3);
-        map.addLayer(layer_RiverWharfe_3);
-        function pop_PollutionIncidents_4(feature, layer) {
+        bounds_group.addLayer(layer_Wharfe_3);
+        map.addLayer(layer_Wharfe_3);
+        function pop_PollutionIncidentsYW_4(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     if (typeof layer.closePopup == 'function') {
@@ -308,9 +307,9 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_PollutionIncidents_4_0() {
+        function style_PollutionIncidentsYW_4_0() {
             return {
-                pane: 'pane_PollutionIncidents_4',
+                pane: 'pane_PollutionIncidentsYW_4',
                 radius: 8.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -324,26 +323,26 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_PollutionIncidents_4');
-        map.getPane('pane_PollutionIncidents_4').style.zIndex = 404;
-        map.getPane('pane_PollutionIncidents_4').style['mix-blend-mode'] = 'normal';
-        var layer_PollutionIncidents_4 = new L.geoJson(json_PollutionIncidents_4, {
+        map.createPane('pane_PollutionIncidentsYW_4');
+        map.getPane('pane_PollutionIncidentsYW_4').style.zIndex = 404;
+        map.getPane('pane_PollutionIncidentsYW_4').style['mix-blend-mode'] = 'normal';
+        var layer_PollutionIncidentsYW_4 = new L.geoJson(json_PollutionIncidentsYW_4, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_PollutionIncidents_4',
-            layerName: 'layer_PollutionIncidents_4',
-            pane: 'pane_PollutionIncidents_4',
-            onEachFeature: pop_PollutionIncidents_4,
+            dataVar: 'json_PollutionIncidentsYW_4',
+            layerName: 'layer_PollutionIncidentsYW_4',
+            pane: 'pane_PollutionIncidentsYW_4',
+            onEachFeature: pop_PollutionIncidentsYW_4,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_PollutionIncidents_4_0(feature));
+                return L.circleMarker(latlng, style_PollutionIncidentsYW_4_0(feature));
             },
         });
-        bounds_group.addLayer(layer_PollutionIncidents_4);
-        map.addLayer(layer_PollutionIncidents_4);
+        bounds_group.addLayer(layer_PollutionIncidentsYW_4);
+        map.addLayer(layer_PollutionIncidentsYW_4);
         function pop_EnvironmentalPerformanceSummaryAssessment_5(feature, layer) {
             layer.on({
                 mouseout: function(e) {
@@ -472,7 +471,7 @@
             };
             abstract.addTo(map);
         var baseMaps = {};
-        L.control.layers(baseMaps,{'<img src="legend/EnvironmentalPerformanceSummaryAssessment_5.png" /> Environmental Performance Summary Assessment': layer_EnvironmentalPerformanceSummaryAssessment_5,'<img src="legend/PollutionIncidents_4.png" /> Pollution Incidents': layer_PollutionIncidents_4,'<img src="legend/RiverWharfe_3.png" /> River Wharfe': layer_RiverWharfe_3,'<img src="legend/CatchmentArea_2.png" /> Catchment Area': layer_CatchmentArea_2,'<img src="legend/CatchmentBodies_1.png" /> Catchment Bodies': layer_CatchmentBodies_1,"Esri Topo World": layer_EsriTopoWorld_0,}).addTo(map);
+        L.control.layers(baseMaps,{'<img src="legend/EnvironmentalPerformanceSummaryAssessment_5.png" /> Environmental Performance Summary Assessment': layer_EnvironmentalPerformanceSummaryAssessment_5,'<img src="legend/PollutionIncidentsYW_4.png" /> Pollution Incidents YW': layer_PollutionIncidentsYW_4,'<img src="legend/Wharfe_3.png" /> Wharfe': layer_Wharfe_3,'<img src="legend/CatchmentBoundaries_2.png" /> Catchment Boundaries': layer_CatchmentBoundaries_2,'<img src="legend/CatchmentBodies_1.png" /> Catchment Bodies': layer_CatchmentBodies_1,"Esri Topo World": layer_EsriTopoWorld_0,}).addTo(map);
         setBounds();
         </script>
     </body>
