@@ -1,5 +1,3 @@
-import { readJSON, writeJSON } from 'https://deno.land/x/flat/mod.ts'
-
 type BBox = {
   lonExtents: number[],
   latExtents: number[],
