@@ -31,3 +31,8 @@ jobs:
           http_url: https://environment.data.gov.uk/UserDownloads/interactive/70950efe73334133b48b4bb85d409d3930660/EA_StatutoryMainRiverMap_GeoJSON_Full.zip
           downloaded_filename: rivers.zip
           postprocess: ./process/rivers.ts
+      - name: Fetch data
+        uses: githubocto/flat@v3
+        with:
+          http_url: https://defra-cde-beta.publishmydata.com/catchment-planning/ManagementCatchment/3115.geojson
+          downloaded_filename: data/wharfe/catchment.geojson
